@@ -75,7 +75,7 @@ void list_category(struct Task taskArray[], int total)
         {
             printf("[%d] Nome: %s\n", i, taskArray[i].taskName);
             printf("Prazo: %s\n", i, taskArray[i].taskData);
-            printf("Status: %s\n", i, taskArray[i].taskCompleted ?  "Concluída" : "Pendente");
+            printf("Status: %s\n", i, taskArray[i].taskCompleted ? "Concluída" : "Pendente");
             printf("Descrição: %s\n", i, taskArray[i].taskInfo);
             printf("[%d] %s\n", i, taskArray[i].taskCategory);
             found = true;
@@ -133,6 +133,52 @@ void removeTask(struct Task taskArray[], int *total)
     (*total)--;
 }
 
+void saveTasks(struct Task taskArray[], int total)
+{
+    FILE *file = fopen("tasks.txt", "w");
+    if (file == NULL)
+    {
+        printf("Erro ao abrir o arquivo!\n");
+        return;
+    }
+
+    for (int i = 0; i < total; i++)
+    {
+        fprintf(file, "%s;%s;%s;%d;%d;%s\n",
+                taskArray[i].taskName,
+                taskArray[i].taskData,
+                taskArray[i].taskInfo,
+                taskArray[i].taskStatus,
+                taskArray[i].taskCompleted,
+                taskArray[i].taskCategory);
+    }
+
+    fclose(file);
+    printf("Tarefas salvas com sucesso!\n");
+}
+
+int loadTasks(struct Task taskArray[])
+{
+    FILE *file = fopen("tasks.txt", "r");
+    if (!file)
+        return 0; // se não existir, retorna 0 tarefas
+
+    int total = 0;
+    while (fscanf(file, "%29[^;];%29[^;];%29[^;];%d;%d;%29[^\n]\n",
+                  taskArray[total].taskName,
+                  taskArray[total].taskData,
+                  taskArray[total].taskInfo,
+                  &taskArray[total].taskStatus,
+                  &taskArray[total].taskCompleted,
+                  taskArray[total].taskCategory) == 6)
+    {
+        total++;
+    }
+
+    fclose(file);
+    return total;
+}
+
 int main()
 {
 
@@ -140,9 +186,10 @@ int main()
     int totalTasks = 0;
     int menuOption;
 
+    totalTasks = loadTasks(taskArray);
     while (true)
     {
-        printf("1 - Adicionar tarefa\n2 - Listar todas as tarefas\n3 - Listar por categoria\n4 - Remover tarefa\n5 - Marcar como concluído\n6 - Salvar tarefas\n7 - Sair");
+        printf("1 - Adicionar tarefa\n2 - Listar todas as tarefas\n3 - Listar por categoria\n4 - Remover tarefa\n5 - Marcar como concluído\n6 - Salvar tarefas\n7 - Sair\n");
         scanf("%d", &menuOption);
         getchar();
 
@@ -164,11 +211,13 @@ int main()
             removeTask(taskArray, &totalTasks);
             break;
 
-         case 5:
+        case 5:
             concludedTask(taskArray, &totalTasks);
             break;
 
         case 6:
+            saveTasks(taskArray, totalTasks);
+            break;
         }
 
         if (menuOption == 7)
