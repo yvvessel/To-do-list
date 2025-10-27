@@ -1,22 +1,46 @@
 # To-do-list
 
-Guia de Uso — Sistema de Gerenciamento de Tarefas
+Como obter o código
 
-Este programa permite criar, listar, remover, salvar e marcar tarefas como concluídas diretamente pelo terminal.
+Você pode baixar o código de duas formas: fazendo fork (caso use GitHub) ou clonando diretamente o repositório.
 
-Início
+1. Fork (para contribuir ou modificar o código)
 
-Compile o programa normalmente:
+Acesse o repositório original no GitHub.
+
+Clique em Fork (no canto superior direito).
+
+O projeto será copiado para a sua conta.
+
+Depois, clone o fork para sua máquina:
+
+git clone https://github.com/seu-usuario/nome-do-repositorio.git
+
+
+Entre na pasta do projeto:
+
+cd nome-do-repositorio
+
+2. Clone direto (para apenas usar o programa)
+
+Se quiser apenas executar o código:
+
+git clone https://github.com/yvvessel/To-do-list.git
+cd nome-do-repositorio
+
+Compilação e Execução
+
+Compile o código usando o GCC:
 
 gcc todo.c -o todo
 
 
-Execute o programa:
+Depois, execute:
 
 ./todo
 
 
-Se existir um arquivo tasks.txt no mesmo diretório, o programa carregará automaticamente as tarefas salvas anteriormente.
+Se houver um arquivo tasks.txt no mesmo diretório, o programa carregará automaticamente as tarefas salvas anteriormente.
 
 Menu Principal
 
