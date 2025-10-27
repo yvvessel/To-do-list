@@ -8,12 +8,12 @@ Início
 
 Compile o programa normalmente:
 
-gcc tarefas.c -o tarefas
+gcc todo.c -o todo
 
 
 Execute o programa:
 
-./tarefas
+./todo
 
 
 Se existir um arquivo tasks.txt no mesmo diretório, o programa carregará automaticamente as tarefas salvas anteriormente.
