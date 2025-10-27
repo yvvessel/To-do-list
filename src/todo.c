@@ -14,21 +14,33 @@ struct Task
 
 void addTask(struct Task taskArray[], int *total)
 {
+    char input[10];
+    
     printf("Digite o nome da tarefa: ");
     fgets(taskArray[*total].taskName, 30, stdin);
+    removeNewline(taskArray[*total].taskName);
 
     printf("Qual o prazo de conclusão de sua tarefa: ");
     fgets(taskArray[*total].taskData, 30, stdin);
+    removeNewline(taskArray[*total].taskData);
 
     printf("Descreva a sua tarefa ou objetivos dela: ");
     fgets(taskArray[*total].taskInfo, 30, stdin);
+    removeNewline(taskArray[*total].taskInfo);
 
     printf("Digite a categoria de sua tarefa: ");
     fgets(taskArray[*total].taskCategory, 30, stdin);
+    removeNewline(taskArray[*total].taskCategory);
 
-    printf("Digite o status: ");
-    scanf("%d", &taskArray[*total].taskStatus);
-    getchar();
+    while (true) {
+        printf("Digite o status (número): ");
+        fgets(input, 10, stdin);
+        if (sscanf(input, "%d", &taskArray[*total].taskStatus) == 1) {
+            break; // válido
+        } else {
+            printf("Valor inválido! Digite um número.\n");
+        }
+    }
 
     taskArray[*total].taskCompleted = false;
     (*total)++;
