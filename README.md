@@ -1,51 +1,51 @@
-# To-do-list
+# Sistema de Gerenciamento de Tarefas (C)
 
-Como obter o código
+Este programa permite criar, listar, remover, salvar e marcar tarefas como concluídas diretamente pelo terminal.  
+Foi desenvolvido em **C** e pode ser compilado e executado em qualquer sistema com suporte ao **GCC**.
 
-Você pode baixar o código de duas formas: fazendo fork (caso use GitHub) ou clonando diretamente o repositório.
+---
 
-1. Fork (para contribuir ou modificar o código)
+## 📦 Como obter o código
 
-Acesse o repositório original no GitHub.
+Você pode baixar o código de duas formas: **fazendo fork** (para modificar) ou **clonando diretamente o repositório** (para apenas usar).
 
-Clique em Fork (no canto superior direito).
-
-O projeto será copiado para a sua conta.
-
-Depois, clone o fork para sua máquina:
-
-git clone https://github.com/seu-usuario/nome-do-repositorio.git
-
-
+### 1. Fazer Fork (GitHub)
+1. Acesse o repositório original no GitHub.  
+2. Clique em **Fork** (no canto superior direito).  
+3. O projeto será copiado para a sua conta.  
+4. Clone o fork para sua máquina:
+   ```bash
+   git clone https://github.com/yvvessel/To-do-list.git
 Entre na pasta do projeto:
 
-cd nome-do-repositorio
-
-2. Clone direto (para apenas usar o programa)
-
+bash
+Copiar código
+cd todo
+2. Clonar diretamente
 Se quiser apenas executar o código:
 
+bash
+Copiar código
 git clone https://github.com/yvvessel/To-do-list.git
-cd nome-do-repositorio
+cd todo
+⚙️ Compilação e Execução
+Compile o código com o GCC:
 
-Compilação e Execução
-
-Compile o código usando o GCC:
-
+bash
+Copiar código
 gcc todo.c -o todo
+Depois, execute o programa:
 
-
-Depois, execute:
-
+bash
+Copiar código
 ./todo
+Se existir um arquivo tasks.txt no diretório, o programa carregará automaticamente as tarefas salvas anteriormente.
+
+🧭 Menu Principal
+Ao executar o programa, o seguinte menu é exibido:
 
 
-Se houver um arquivo tasks.txt no mesmo diretório, o programa carregará automaticamente as tarefas salvas anteriormente.
-
-Menu Principal
-
-Ao iniciar, o seguinte menu será exibido:
-
+Copiar código
 1 - Adicionar tarefa
 2 - Listar todas as tarefas
 3 - Listar por categoria
@@ -53,27 +53,24 @@ Ao iniciar, o seguinte menu será exibido:
 5 - Marcar como concluído
 6 - Salvar tarefas
 7 - Sair
-
-Funcionalidades
+🧩 Funcionalidades
 1. Adicionar tarefa
+Permite cadastrar uma nova tarefa informando:
 
-Permite criar uma nova tarefa informando os seguintes dados:
+Nome da tarefa
 
-Nome da tarefa: um título curto, como “Estudar C”.
+Prazo de conclusão
 
-Prazo de conclusão: data ou período.
+Descrição ou objetivos
 
-Descrição: detalhes ou objetivos da tarefa.
+Categoria
 
-Categoria: para organização (por exemplo, “Trabalho” ou “Estudos”).
+Status (0 = pendente, 1 = em andamento, 2 = concluída)
 
-Status: número representando o estado da tarefa (ex: 0 = pendente, 1 = em andamento, 2 = concluída).
-
-Se o valor inserido no status for inválido (como uma letra), o programa pedirá novamente até receber um número válido.
+Se o usuário digitar um valor inválido no status, o programa pedirá novamente.
 
 2. Listar todas as tarefas
-
-Mostra todas as tarefas cadastradas com as seguintes informações:
+Mostra todas as tarefas com:
 
 Nome
 
@@ -83,50 +80,46 @@ Descrição
 
 Categoria
 
-Status (Concluída ou Pendente)
+Status (“Concluída” ou “Pendente”)
 
-Se não houver tarefas cadastradas, o programa informará isso.
+Se não houver tarefas cadastradas, o programa avisará.
 
 3. Listar por categoria
+Filtra as tarefas com base em uma categoria digitada.
+Se a categoria não existir, aparece a mensagem:
 
-Filtra as tarefas com base em uma categoria informada pelo usuário.
-Ao digitar o nome da categoria, o programa exibirá apenas as tarefas correspondentes.
-Caso nenhuma seja encontrada, aparecerá a mensagem “Categoria não encontrada”.
-
+nginx
+Copiar código
+Categoria não encontrada!
 4. Remover tarefa
-
-Exibe a lista de tarefas com seus respectivos índices.
+Mostra as tarefas com seus respectivos índices.
 Digite o índice da tarefa que deseja remover.
-Após isso, o programa reorganiza automaticamente a lista.
+Após a remoção, o programa reorganiza a lista automaticamente.
 
 5. Marcar como concluída
-
 Mostra todas as tarefas e seus índices.
-Digite o índice da tarefa concluída e o programa marcará como “Concluída”.
+Digite o índice da tarefa que deseja marcar como concluída.
 
 6. Salvar tarefas
-
 Salva todas as tarefas no arquivo tasks.txt.
-Cada vez que essa opção é usada, o arquivo é sobrescrito com as tarefas atuais.
+O arquivo é sobrescrito a cada salvamento.
 
 7. Sair
-
 Encerra o programa.
-É importante lembrar que, se o programa for encerrado sem usar a opção “Salvar tarefas”, as alterações não serão registradas no arquivo.
+Atenção: se sair sem salvar, as alterações não serão mantidas.
 
-Arquivo tasks.txt
+🗂 Estrutura do arquivo tasks.txt
+As tarefas são salvas no formato:
 
-As tarefas são armazenadas no seguinte formato:
-
+Copiar código
 Nome;Prazo;Descrição;Status;Concluída;Categoria
+O programa lê automaticamente esse arquivo ao iniciar, carregando as tarefas existentes.
 
+📝 Observações
+Sempre salve antes de sair, para evitar perda de dados.
 
-O programa lê esse arquivo automaticamente ao iniciar, carregando as tarefas anteriores.
+Categorias diferenciam maiúsculas e minúsculas (“Estudos” ≠ “estudos”).
 
-Observações
+O programa suporta até 100 tarefas por execução.
 
-Utilize a opção “Salvar tarefas” antes de sair, para não perder alterações.
-
-As categorias são sensíveis à diferença entre maiúsculas e minúsculas (“Estudos” e “estudos” são consideradas diferentes).
-
-O programa suporta até 100 tarefas ao mesmo tempo.
+O arquivo tasks.txt é criado automaticamente ao salvar pela primeira vez.
