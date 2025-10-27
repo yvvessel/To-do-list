@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
+
+taskCompleted = false;
+
 struct Task {
         char taskName[30];
         int taskStatus;
@@ -10,6 +14,17 @@ struct Task {
     };
 
 void addTask(struct Task taskArray[], int *total) {
+printf("Digite o nome da tarefa: ");
+fgets(taskArray[*total].taskName, 30, stdin);
+printf("Qual o prazo de conclusão de sua tarefa: ");
+fgets(taskArray[*total].taskData, 30, stdin);
+printf("Descreva a sua tarefa ou objetivos dela: ");
+fgets(taskArray[*total].taskInfo, 30, stdin);
+printf("Digite a categoria de sua tarefa: ");
+fgets(taskArray[*total].taskCategory, 30, stdin);
+printf("Digite o status: ");
+scanf("%d", &taskArray[*total].taskStatus);
+taskArray[*total].taskCompleted = false;
 (*total)++;
 }
 
@@ -30,6 +45,7 @@ int main() {
     struct Task taskArray[100];
     int totalTasks = 0;
     int menuOption;
+
 
     while (true) {
         printf("1 - Adicionar tarefa\n2 - Listar tarefas\n3 - Marcar como concluído\n4 - Remover tarefa\n5 - Salvar tarefas\n6 - Sair");
@@ -53,7 +69,7 @@ int main() {
             break;
 
             case 5:
-            
+
         }
         
         if(menuOption == 6) {
