@@ -2,120 +2,179 @@
 #include <stdbool.h>
 #include <string.h>
 
-taskCompleted = false;
+struct Task
+{
+    char taskName[30];
+    int taskStatus;
+    char taskData[30];
+    char taskInfo[30];
+    bool taskCompleted;
+    char taskCategory[30];
+};
 
-struct Task {
-        char taskName[30];
-        int taskStatus;
-        char taskData[30];
-        char taskInfo[30];
-        bool taskCompleted;
-        char taskCategory[30];
-    };
+void addTask(struct Task taskArray[], int *total)
+{
+    printf("Digite o nome da tarefa: ");
+    fgets(taskArray[*total].taskName, 30, stdin);
 
-void addTask(struct Task taskArray[], int *total) {
-printf("Digite o nome da tarefa: ");
-fgets(taskArray[*total].taskName, 30, stdin);
+    printf("Qual o prazo de conclusão de sua tarefa: ");
+    fgets(taskArray[*total].taskData, 30, stdin);
 
-printf("Qual o prazo de conclusão de sua tarefa: ");
-fgets(taskArray[*total].taskData, 30, stdin);
+    printf("Descreva a sua tarefa ou objetivos dela: ");
+    fgets(taskArray[*total].taskInfo, 30, stdin);
 
-printf("Descreva a sua tarefa ou objetivos dela: ");
-fgets(taskArray[*total].taskInfo, 30, stdin);
+    printf("Digite a categoria de sua tarefa: ");
+    fgets(taskArray[*total].taskCategory, 30, stdin);
 
-printf("Digite a categoria de sua tarefa: ");
-fgets(taskArray[*total].taskCategory, 30, stdin);
+    printf("Digite o status: ");
+    scanf("%d", &taskArray[*total].taskStatus);
+    getchar();
 
-printf("Digite o status: ");
-scanf("%d", &taskArray[*total].taskStatus);
-
-taskArray[*total].taskCompleted = false;
-(*total)++;
+    taskArray[*total].taskCompleted = false;
+    (*total)++;
 }
 
-void concludedTask(struct Task taskArray[], int total) {
-int indice;
-//printando a lista de tarefas e seus indices
-for(int i = 0; i < total; i++) {
-    printf("Indice: [%d] ", i);
-    printf("[%d] %s\n", i, taskArray[i].taskName);
-}
-//requisitando o indice da tarefa a ser concluida
-printf("Digite o indice da tarefa a ser concluida: ");
-scanf("%d", &indice);
-//verificando se o indice é válido
-while (indice < 0 || indice >= total) {
-    printf("Indice invalido. Digite novamente: ");
+void concludedTask(struct Task taskArray[], int total)
+{
+    int indice;
+    // printando a lista de tarefas e seus indices
+    for (int i = 0; i < total; i++)
+    {
+        printf("Indice: [%d] ", i);
+        printf("[%d] %s\n", i, taskArray[i].taskName);
+    }
+    // requisitando o indice da tarefa a ser concluida
+    printf("Digite o indice da tarefa a ser concluida: \n");
     scanf("%d", &indice);
+    getchar();
+    // verificando se o indice é válido
+    while (indice < 0 || indice >= total)
+    {
+        printf("Indice invalido. Digite novamente: \n");
+        scanf("%d", &indice);
+        getchar();
+    }
+
+    taskArray[indice].taskCompleted = true;
+
+    printf("Tarefa '%s' marcada como concluida.\n", taskArray[indice].taskName);
 }
 
-taskArray[indice].taskCompleted = true;
+void list_category(struct Task taskArray[], int total)
+{
+    bool found = false;
+    char category[30];
 
-printf("Tarefa '%s' marcada como concluida.\n", taskArray[indice].taskName);
+    printf("Digite o nome da categoria a ser listada: \n");
+    scanf("%s", category);
+    getchar();
+
+    for (int i = 0; i < total; i++)
+    {
+        if (strcmp(taskArray[i].taskCategory, category) == 0)
+        {
+            printf("[%d] Nome: %s\n", i, taskArray[i].taskName);
+            printf("Prazo: %s\n", i, taskArray[i].taskData);
+            printf("Status: %s\n", i, taskArray[i].taskCompleted ?  "Concluída" : "Pendente");
+            printf("Descrição: %s\n", i, taskArray[i].taskInfo);
+            printf("[%d] %s\n", i, taskArray[i].taskCategory);
+            found = true;
+        }
+    }
+    if (!found)
+    {
+        printf("Categoria não encontrada!\n");
+    }
 }
 
-void list_category(struct Task taskArray[], int total) {
+void list_all_tasks(struct Task taskArray[], int total)
+{
+    if (total == 0)
+    {
+        printf("Não há tarefas cadastradas.\n");
+        return;
+    }
 
-}
-
-void removeTask(struct Task taskArray[], int *total) {
-int indice;
-
-//previne o usuario de colocar valores invalidos
-while (indice < 0 || indice >= *total) {
-//printar o indice da tarefa e seu nome
-for(int i = 0; i < *total; i++) {
-    printf("Indice: [%d] ", i);
-    printf("[%d] %s\n", i, taskArray[i].taskName);
-    printf("[%d] %s\n", i, taskArray[i].taskData);
-}
-printf("Digite o indice da tarefa a ser removida: ");
-scanf("%d", &indice);
-}
-//ajustar a ordem das tarefas no array
-for (int i = indice; i < *total - 1; i++) {
-    taskArray[i] = taskArray[i+1];
-}
-//remover a tarefa
-(*total)--;
+    for (int i = 0; i < total; i++)
+    {
+        printf("[%d] Nome: %s", i, taskArray[i].taskName);
+        printf("    Prazo: %s", taskArray[i].taskData);
+        printf("    Descrição: %s", taskArray[i].taskInfo);
+        printf("    Categoria: %s", taskArray[i].taskCategory);
+        printf("    Status: %s\n", taskArray[i].taskCompleted ? "Concluída" : "Pendente");
+        printf("----------------------------------------\n");
+    }
 }
 
-int main() {
+void removeTask(struct Task taskArray[], int *total)
+{
+    int indice = -1;
+
+    // previne o usuario de colocar valores invalidos
+    while (indice < 0 || indice >= *total)
+    {
+        // printar o indice da tarefa e seu nome
+        for (int i = 0; i < *total; i++)
+        {
+            printf("Indice: [%d] ", i);
+            printf("[%d] %s\n", i, taskArray[i].taskName);
+            printf("[%d] %s\n", i, taskArray[i].taskData);
+        }
+        printf("Digite o indice da tarefa a ser removida: ");
+        scanf("%d", &indice);
+        getchar();
+    }
+    // ajustar a ordem das tarefas no array
+    for (int i = indice; i < *total - 1; i++)
+    {
+        taskArray[i] = taskArray[i + 1];
+    }
+    // remover a tarefa
+    (*total)--;
+}
+
+int main()
+{
 
     struct Task taskArray[100];
     int totalTasks = 0;
     int menuOption;
 
-
-    while (true) {
-        printf("1 - Adicionar tarefa\n2 - Listar tarefas\n3 - Marcar como concluído\n4 - Remover tarefa\n5 - Salvar tarefas\n6 - Sair");
+    while (true)
+    {
+        printf("1 - Adicionar tarefa\n2 - Listar todas as tarefas\n3 - Listar por categoria\n4 - Remover tarefa\n5 - Marcar como concluído\n6 - Salvar tarefas\n7 - Sair");
         scanf("%d", &menuOption);
+        getchar();
 
-        switch(menuOption) {
-            case 1:
+        switch (menuOption)
+        {
+        case 1:
             addTask(taskArray, &totalTasks);
             break;
 
-            case 2:
-            list_category(taskArray, &totalTasks);
-            break;
-            
-            case 3:
-            concludedTask(taskArray, &totalTasks);
+        case 2:
+            list_all_tasks(taskArray, totalTasks);
             break;
 
-            case 4:
+        case 3:
+            list_category(taskArray, totalTasks);
+            break;
+
+        case 4:
             removeTask(taskArray, &totalTasks);
             break;
 
-            case 5:
+         case 5:
+            concludedTask(taskArray, &totalTasks);
+            break;
 
+        case 6:
         }
-        
-        if(menuOption == 6) {
+
+        if (menuOption == 7)
+        {
             printf("Saindo...\n");
             break;
         }
     }
-
 }
