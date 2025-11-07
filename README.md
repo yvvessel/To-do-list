@@ -5,7 +5,7 @@ Foi desenvolvido em **C** e pode ser compilado e executado em qualquer sistema c
 
 ---
 
-## 📦 Como obter o código
+##  Como obter o código
 
 Você pode baixar o código de duas formas: **fazendo fork** (para modificar) ou **clonando diretamente o repositório** (para apenas usar).
 
@@ -28,7 +28,7 @@ bash
 Copiar código
 git clone https://github.com/yvvessel/To-do-list.git
 cd todo
-⚙️ Compilação e Execução
+ Compilação e Execução
 Compile o código com o GCC:
 
 bash
@@ -41,7 +41,7 @@ Copiar código
 ./todo
 Se existir um arquivo tasks.txt no diretório, o programa carregará automaticamente as tarefas salvas anteriormente.
 
-🧭 Menu Principal
+ Menu Principal
 Ao executar o programa, o seguinte menu é exibido:
 
 
@@ -53,7 +53,7 @@ Copiar código
 5 - Marcar como concluído
 6 - Salvar tarefas
 7 - Sair
-🧩 Funcionalidades
+ Funcionalidades
 1. Adicionar tarefa
 Permite cadastrar uma nova tarefa informando:
 
@@ -108,14 +108,14 @@ O arquivo é sobrescrito a cada salvamento.
 Encerra o programa.
 Atenção: se sair sem salvar, as alterações não serão mantidas.
 
-🗂 Estrutura do arquivo tasks.txt
+ Estrutura do arquivo tasks.txt
 As tarefas são salvas no formato:
 
 Copiar código
 Nome;Prazo;Descrição;Status;Concluída;Categoria
 O programa lê automaticamente esse arquivo ao iniciar, carregando as tarefas existentes.
 
-📝 Observações
+  Observações
 Sempre salve antes de sair, para evitar perda de dados.
 
 Categorias diferenciam maiúsculas e minúsculas (“Estudos” ≠ “estudos”).
